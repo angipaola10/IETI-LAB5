@@ -34,7 +34,8 @@ export default function UserProfile() {
     const [password2, setPassword2] = useState("");
     const history = useHistory();
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
+        e.preventDefault();
         if (password !== password2){
             alert("Oops!, an error has occurred. Check your inputs and try again!"); return;
         } 

@@ -34,7 +34,8 @@ export default function NavigationItems(){
             .catch(() => {});
     }, [userEmail]);
 
-    const Logout = () => {
+    const Logout = (e) => {
+        e.preventDefault();
         localStorage.setItem("loggingStaus","notLogged");
         localStorage.removeItem("username");
         localStorage.removeItem("userpassword");

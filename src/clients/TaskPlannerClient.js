@@ -1,5 +1,5 @@
 export const getUsers = ( ) => {
-    return  fetch('https://taskplanner1-ieti-default-rtdb.firebaseio.com/users.json')
+    return  fetch('https://task-planner-app-87baa-default-rtdb.firebaseio.com/users.json')
     .then( res => {
         alert(res);
         if (!res.ok) throw new Error('Response is NOT ok');
@@ -8,7 +8,7 @@ export const getUsers = ( ) => {
 }
 
 export const getTasks = ( ) => {
-    return  fetch('https://taskplanner1-ieti-default-rtdb.firebaseio.com/tasks.json')
+    return  fetch('https://task-planner-app-87baa-default-rtdb.firebaseio.com/tasks.json')
     .then( res => {
         if (!res.ok) throw new Error('Response is NOT ok');
         return res.json();
@@ -16,7 +16,7 @@ export const getTasks = ( ) => {
 }
 
 export const postTask = ( newTask ) => {
-    return  fetch('https://taskplanner1-ieti-default-rtdb.firebaseio.com/tasks.json', {
+    return  fetch('https://task-planner-app-87baa-default-rtdb.firebaseio.com/tasks.json', {
                 method: 'POST',
                 headers: {
                 "Content-Type": "application/json"
@@ -28,7 +28,7 @@ export const postTask = ( newTask ) => {
 }
 
 export const getUserByUserName = ( userName ) => {
-    return  fetch(`https://taskplanner1-ieti-default-rtdb.firebaseio.com/users/${userName}.json`)
+    return  fetch(`https://task-planner-app-87baa-default-rtdb.firebaseio.com/users/${userName}.json`)
     .then( res => {
         if (!res.ok) throw new Error('Response is NOT ok');
         return res.json();
@@ -36,7 +36,7 @@ export const getUserByUserName = ( userName ) => {
 }
 
 export const putUser = ( user, userName ) => {
-    return  fetch(`https://taskplanner1-ieti-default-rtdb.firebaseio.com/users/${userName}.json`, {
+    return  fetch(`https://task-planner-app-87baa-default-rtdb.firebaseio.com/users/${userName}.json`, {
                 method: 'PUT',
                 headers: {
                 "Content-Type": "application/json"

@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import { Container, TextField, Button, makeStyles, Avatar, Typography } from '@material-ui/core';
 import LockIcon from '@material-ui/icons/Lock';
-import { users } from '../data/Users';
 import { useHistory } from "react-router-dom";
+import { getUserByUserName } from '../clients/TaskPlannerClient';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -32,18 +32,21 @@ export default function Login() {
     const [password, setPassword] = useState("");
     const history = useHistory();
 
-    const logIn = () => {
-        if (users.has(userName)){
-            if(users.get(userName).password === password){
-                localStorage.setItem("loggingStaus", "logged");
-                localStorage.setItem("username", userName);
-                localStorage.setItem("userpassword", password);
-                history.push("/mainView");
-            }else{
-                alert("Oops, incorrect password");
-            }
-        }else{
-            alert("Oops, user not found");
+    const logIn = (e) => {
+        e.preventDefault();
+        if (userName === ""){
+            alert("Enter your username");
+        } else{
+            getUserByUserName(userName)
+                .then( resp => {
+                    if (resp === null) alert("Oops, user not found");
+                    if (resp.password === password){
+                        localStorage.setItem("loggingStaus", "logged");
+                        localStorage.setItem("username", userName);
+                        localStorage.setItem("userpassword", password);
+                        history.push("/mainView");
+                    }else alert("Oops, incorrect password");
+                }).catch( () => alert("Oops, Something went wrong. Try again!!"));
         }
     }
 

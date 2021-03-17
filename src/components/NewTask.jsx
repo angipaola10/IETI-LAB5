@@ -4,9 +4,9 @@ import { Container, TextField, Fab, makeStyles, Avatar, Typography } from '@mate
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import CheckIcon from '@material-ui/icons/Check';
-import { users } from '../data/Users';
 import { postTask } from '../clients/TaskPlannerClient';
 import { useHistory } from "react-router-dom";
+import { getUserByUserName } from '../clients/TaskPlannerClient';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -47,26 +47,29 @@ export default function NewTask() {
         e.preventDefault();
         if (!description.length || !responsible.length || !status.length || !dueDate)
             alert("Oops, check the inputs and try again!");
+        getUserByUserName(responsible)
+            .then ( resp => {
+                if (resp !== null){
+                    let newTask = {
+                        description: description,
+                        responsible: {
+                            name: responsible,
+                            email: resp.email
+                        },
+                        status: status,
+                        dueDate: dueDate.valueOf()
+                    };
+                    postTask ( newTask )
+                        .then ( () => { 
+                            alert("Task registered");
+                            history.push("/mainView");
+                        })
+                        .catch( () => alert("Oops, an error has ocurred"));
+                }else{
+                    alert("Oops, the responsible is not registered as user!");
+                }
+            });
         
-        if (users.has(responsible)){
-            let newTask = {
-                description: description,
-                responsible: {
-                    name: responsible,
-                    email: users.get(responsible).email
-                },
-                status: status,
-                dueDate: dueDate.valueOf()
-            };
-            postTask ( newTask )
-                .then ( () => { 
-                    alert("Task registered");
-                    history.push("/mainView");
-                })
-                .catch( () => alert("Oops, an error has ocurred"));
-        }else{
-            alert("Oops, the responsible is not registered as user!");
-        }
     }
 
 
