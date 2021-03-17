@@ -1,0 +1,25 @@
+{
+  "short_name": "Task Planner App",
+  "name": "Task Planner",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "128x128 64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "tasklogo192",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "tasklogo512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#f50057",
+  "background_color": "rgba(255,255,255,0)"
+}
